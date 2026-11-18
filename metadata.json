@@ -1,0 +1,6 @@
+{
+  "name": "MASTER DATA — Employee Enumeration Portal",
+  "description": "Google Sheets MASTER DATA lookup and self-enumeration entry portal powered by Google Apps Script.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
