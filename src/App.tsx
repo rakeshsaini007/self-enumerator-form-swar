@@ -2,15 +2,13 @@ import { useState } from 'react';
 import { getEffectiveGasUrl, isValidGasUrl } from './config';
 import { PREVIEW_MASTER_ROWS } from './data/previewSheet';
 import { MasterRecord } from './types/masterData';
-import { Sidebar, WorkspaceTab } from './components/Sidebar';
-import { TopBar } from './components/TopBar';
+import { TopBar, WorkspaceTab } from './components/TopBar';
 import { EntryFormView } from './components/EntryFormView';
 import { MasterSheetView } from './components/MasterSheetView';
 import { AppsScriptSetupView } from './components/AppsScriptSetupView';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<WorkspaceTab>('entry');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const [urlVersion, setUrlVersion] = useState(0);
   const effectiveUrl = getEffectiveGasUrl();
@@ -79,25 +77,15 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex bg-slate-50 text-slate-900">
-      <Sidebar
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 overflow-x-hidden">
+      <TopBar
         activeTab={activeTab}
         onSelectTab={setActiveTab}
-        isLiveConnected={isLiveConnected}
-        isPreviewMode={!isLiveConnected && isPreviewMode}
-        mobileOpen={mobileMenuOpen}
-        onCloseMobile={() => setMobileMenuOpen(false)}
+        onResetAction={handleResetLookup}
+        onOpenMobileMenu={() => {}}
       />
 
-      <div className="flex-1 min-w-0 flex flex-col">
-        <TopBar
-          activeTab={activeTab}
-          onSelectTab={setActiveTab}
-          onResetAction={handleResetLookup}
-          onOpenMobileMenu={() => setMobileMenuOpen(true)}
-        />
-
-        <main className="flex-1 p-4 sm:p-8">
+      <main className="flex-1 px-3 py-4 sm:p-8">
           {activeTab === 'entry' && (
             <EntryFormView
               isLiveConnected={isLiveConnected}
@@ -133,7 +121,6 @@ export default function App() {
             />
           )}
         </main>
-      </div>
     </div>
   );
 }

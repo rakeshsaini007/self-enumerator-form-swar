@@ -717,30 +717,30 @@ export function EntryFormView({
   const createSeIdValid = isValidSeId(createForm.seId);
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6">
       {/* Page Header */}
-      <div className="flex flex-wrap items-end justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
             {mode === 'create'
               ? 'Create New Employee Entry'
               : 'Employee Enumeration Entry'}
           </h1>
-          <p className="text-sm text-slate-600 mt-1">
+          <p className="text-xs sm:text-sm text-slate-600 mt-1">
             {mode === 'create'
               ? 'Add a new employee row directly to MASTER DATA using UPPERCASE English alphabet.'
               : 'Enter a 10-digit mobile number to auto-fetch employee details from MASTER DATA and complete self-enumeration fields in uppercase English.'}
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 w-full sm:w-auto">
           {mode === 'lookup' ? (
             <button
               type="button"
               onClick={() => enterCreateMode(mobileInput.length === 10 ? mobileInput : '')}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-blue-800 hover:bg-blue-900 rounded-lg shadow-sm transition-colors whitespace-nowrap shrink-0"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 min-h-[44px] text-sm sm:text-xs font-semibold text-white bg-blue-800 hover:bg-blue-900 rounded-lg shadow-sm transition-colors whitespace-nowrap shrink-0"
             >
-              <Plus className="w-3.5 h-3.5" />
+              <Plus className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
               Create New Entry
             </button>
           ) : (
@@ -751,9 +751,9 @@ export function EntryFormView({
                 setSaveError(null);
                 setSaveSuccess(null);
               }}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-blue-800 hover:bg-blue-900 rounded-lg shadow-sm transition-colors whitespace-nowrap shrink-0"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 min-h-[44px] text-sm sm:text-xs font-semibold text-white bg-blue-800 hover:bg-blue-900 rounded-lg shadow-sm transition-colors whitespace-nowrap shrink-0"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <ArrowLeft className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
               Search by Mobile Number
             </button>
           )}
@@ -762,7 +762,7 @@ export function EntryFormView({
 
       {/* Setup Banner when neither Live URL nor Preview is active */}
       {!canQuery && (
-        <section className="bg-amber-50 border border-amber-200 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <section className="bg-amber-50 border border-amber-200 rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <h2 className="text-sm font-semibold text-amber-950">
               Google Apps Script Deployment URL Needed
@@ -774,18 +774,18 @@ export function EntryFormView({
               now.
             </p>
           </div>
-          <div className="flex items-center gap-2.5 shrink-0">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0 w-full sm:w-auto">
             <button
               type="button"
               onClick={onEnablePreviewMode}
-              className="px-3.5 py-2 text-xs font-semibold text-amber-950 bg-white border border-amber-300 hover:bg-amber-100 rounded-lg transition-colors whitespace-nowrap"
+              className="px-3.5 py-2.5 sm:py-2 min-h-[44px] sm:min-h-0 text-xs font-semibold text-amber-950 bg-white border border-amber-300 hover:bg-amber-100 rounded-lg transition-colors whitespace-nowrap"
             >
               Try Local Preview
             </button>
             <button
               type="button"
               onClick={onGoToSetup}
-              className="px-4 py-2 text-xs font-semibold text-white bg-blue-800 hover:bg-blue-900 rounded-lg transition-colors whitespace-nowrap"
+              className="px-4 py-2.5 sm:py-2 min-h-[44px] sm:min-h-0 text-xs font-semibold text-white bg-blue-800 hover:bg-blue-900 rounded-lg transition-colors whitespace-nowrap"
             >
               Configure URL
             </button>
@@ -795,11 +795,11 @@ export function EntryFormView({
 
       {/* Local Preview Mode Info Strip */}
       {!isLiveConnected && isPreviewMode && (
-        <section className="bg-white border border-slate-200 rounded-xl px-5 py-3.5 flex flex-wrap items-center justify-between gap-3">
-          <div className="text-xs text-slate-700">
+        <section className="bg-white border border-slate-200 rounded-xl px-4 py-3 sm:px-5 sm:py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="text-xs text-slate-700 flex flex-wrap items-center gap-1.5">
             <span className="font-semibold text-amber-700">Local Preview Active</span>
-            <span className="mx-2 text-slate-300">|</span>
-            <span>Sample mobiles: </span>
+            <span className="text-slate-300 hidden sm:inline">|</span>
+            <span className="w-full sm:w-auto text-slate-500 sm:text-slate-700">Sample mobiles:</span>
             {['8077539121', '7456913512', '9719243073', '6395180619'].map((sample) => (
               <button
                 key={sample}
@@ -808,7 +808,7 @@ export function EntryFormView({
                   setMode('lookup');
                   handleMobileChange(sample);
                 }}
-                className="font-mono tabular-nums text-blue-700 hover:underline mx-1.5 font-medium"
+                className="font-mono tabular-nums text-blue-700 hover:underline px-2 py-1 rounded bg-slate-100 sm:bg-transparent sm:px-1 font-medium"
               >
                 {sample}
               </button>
@@ -817,7 +817,7 @@ export function EntryFormView({
           <button
             type="button"
             onClick={onGoToSetup}
-            className="text-xs font-semibold text-blue-800 hover:underline whitespace-nowrap"
+            className="text-xs font-semibold text-blue-800 hover:underline whitespace-nowrap self-start sm:self-auto py-1"
           >
             Connect Live Sheet URL →
           </button>
@@ -826,11 +826,11 @@ export function EntryFormView({
 
       {/* CREATE NEW ENTRY MODE */}
       {mode === 'create' && (
-        <form onSubmit={handleCreateSubmit} className="space-y-6">
-          <section className="bg-white border border-slate-200 rounded-xl p-6 space-y-6">
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
+        <form onSubmit={handleCreateSubmit} className="space-y-4 sm:space-y-6">
+          <section className="bg-white border border-slate-200 rounded-xl p-4 sm:p-6 space-y-5 sm:space-y-6">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3.5 sm:pb-4">
               <div className="flex items-center gap-2">
-                <UserPlus className="w-4 h-4 text-blue-800" />
+                <UserPlus className="w-4 h-4 text-blue-800 shrink-0" />
                 <h2 className="text-base font-semibold text-slate-900">
                   New Employee & Self-Enumeration Details
                 </h2>
@@ -840,7 +840,7 @@ export function EntryFormView({
               </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
               {/* मोबाइल नंबर */}
               <div>
                 <div className="flex items-center justify-between gap-2 mb-1.5">
@@ -864,7 +864,7 @@ export function EntryFormView({
                   aria-invalid={Boolean(createErrors.mobile || duplicateCreateMobileError)}
                   value={createForm.mobile}
                   onChange={(e) => handleCreateFieldChange('mobile', e.target.value)}
-                  className={`w-full px-3.5 py-2.5 text-sm font-mono tabular-nums bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm font-mono tabular-nums bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                     createErrors.mobile || duplicateCreateMobileError
                       ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                       : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -893,12 +893,14 @@ export function EntryFormView({
                   <input
                     id="create-employee-name"
                     type="text"
+                    autoCapitalize="characters"
+                    autoCorrect="off"
                     required
                     value={createForm.employeeName}
                   onChange={(e) =>
                     handleCreateFieldChange('employeeName', e.target.value)
                   }
-                  className={`w-full px-3.5 py-2.5 text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                     createErrors.employeeName
                       ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                       : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -921,15 +923,17 @@ export function EntryFormView({
                   <span className="text-slate-500 font-normal">(Father / Husband Name)</span>
                   <span className="text-red-600 ml-0.5" aria-hidden="true">*</span>
                 </label>
-                <input
-                  id="create-father-husband-name"
-                  type="text"
-                  required
-                  value={createForm.fatherHusbandName}
-                  onChange={(e) =>
-                    handleCreateFieldChange('fatherHusbandName', e.target.value)
-                  }
-                  className={`w-full px-3.5 py-2.5 text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                    <input
+                      id="create-father-husband-name"
+                      type="text"
+                      autoCapitalize="characters"
+                      autoCorrect="off"
+                      required
+                      value={createForm.fatherHusbandName}
+                      onChange={(e) =>
+                        handleCreateFieldChange('fatherHusbandName', e.target.value)
+                      }
+                      className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                     createErrors.fatherHusbandName
                       ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                       : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -957,11 +961,13 @@ export function EntryFormView({
                 <input
                   id="create-ehrms-code"
                   type="text"
+                  autoCapitalize="characters"
+                  autoCorrect="off"
                   value={createForm.ehrmsCode}
                   onChange={(e) =>
                     handleCreateFieldChange('ehrmsCode', e.target.value)
                   }
-                  className={`w-full px-3.5 py-2.5 text-sm font-mono tabular-nums uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm font-mono tabular-nums uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                     createErrors.ehrmsCode
                       ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                       : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -988,7 +994,7 @@ export function EntryFormView({
                   required
                   value={createForm.gender}
                   onChange={(e) => handleCreateFieldChange('gender', e.target.value)}
-                  className={`w-full px-3.5 py-2.5 text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                     createErrors.gender
                       ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                       : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -1024,7 +1030,7 @@ export function EntryFormView({
                       setCustomDesignationNotice(undefined);
                     }
                   }}
-                  className={`w-full px-3.5 py-2.5 text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                     createErrors.designation && createForm.designation !== 'OTHER'
                       ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                       : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -1050,6 +1056,8 @@ export function EntryFormView({
                     <input
                       id="create-designation-other"
                       type="text"
+                      autoCapitalize="characters"
+                      autoCorrect="off"
                       required
                       value={customDesignation}
                       onChange={(e) => {
@@ -1067,7 +1075,7 @@ export function EntryFormView({
                         setSaveError(null);
                         setSaveSuccess(null);
                       }}
-                      className={`w-full px-3.5 py-2.5 text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                      className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                         createErrors.designation
                           ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                           : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -1094,12 +1102,14 @@ export function EntryFormView({
                 <input
                   id="create-office-name"
                   type="text"
+                  autoCapitalize="characters"
+                  autoCorrect="off"
                   required
                   value={createForm.officeName}
                   onChange={(e) =>
                     handleCreateFieldChange('officeName', e.target.value)
                   }
-                  className={`w-full px-3.5 py-2.5 text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                     createErrors.officeName
                       ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                       : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -1133,7 +1143,7 @@ export function EntryFormView({
                       setCustomDepartmentNotice(undefined);
                     }
                   }}
-                  className={`w-full px-3.5 py-2.5 text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                     createErrors.departmentName && createForm.departmentName !== 'OTHER'
                       ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                       : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -1163,6 +1173,8 @@ export function EntryFormView({
                     <input
                       id="create-department-other"
                       type="text"
+                      autoCapitalize="characters"
+                      autoCorrect="off"
                       required
                       value={customDepartment}
                       onChange={(e) => {
@@ -1180,7 +1192,7 @@ export function EntryFormView({
                         setSaveError(null);
                         setSaveSuccess(null);
                       }}
-                      className={`w-full px-3.5 py-2.5 text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                      className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                         createErrors.departmentName
                           ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                           : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -1211,10 +1223,12 @@ export function EntryFormView({
                 <input
                   id="create-village"
                   type="text"
+                  autoCapitalize="characters"
+                  autoCorrect="off"
                   required
                   value={createForm.village}
                   onChange={(e) => handleCreateFieldChange('village', e.target.value)}
-                  className={`w-full px-3.5 py-2.5 text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                     createErrors.village
                       ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                       : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -1248,11 +1262,13 @@ export function EntryFormView({
                 <input
                   id="create-se-id"
                   type="text"
+                  autoCapitalize="characters"
+                  autoCorrect="off"
                   maxLength={12}
                   required
                   value={createForm.seId}
                   onChange={(e) => handleCreateFieldChange('seId', e.target.value)}
-                  className={`w-full px-3.5 py-2.5 text-sm font-mono tabular-nums uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm font-mono tabular-nums uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                     createErrors.seId
                       ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                       : createSeIdValid
@@ -1284,7 +1300,7 @@ export function EntryFormView({
                   required
                   value={createForm.seDate}
                   onChange={(e) => handleCreateFieldChange('seDate', e.target.value)}
-                  className={`w-full px-3.5 py-2.5 text-sm font-mono tabular-nums bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm font-mono tabular-nums bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                     createErrors.seDate
                       ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                       : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -1308,10 +1324,12 @@ export function EntryFormView({
                 <input
                   id="create-done-by"
                   type="text"
+                  autoCapitalize="characters"
+                  autoCorrect="off"
                   required
                   value={createForm.doneBy}
                   onChange={(e) => handleCreateFieldChange('doneBy', e.target.value)}
-                  className={`w-full px-3.5 py-2.5 text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                     createErrors.doneBy
                       ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                       : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -1339,15 +1357,15 @@ export function EntryFormView({
               </div>
             )}
 
-            <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-100">
-              <p className="text-xs text-slate-500">
+            <div className="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pt-4 border-t border-slate-100">
+              <p className="text-xs text-slate-500 text-center sm:text-left">
                 Adds a new row at the bottom of Google Sheet{' '}
                 <span className="font-semibold text-slate-700">MASTER DATA</span>.
               </p>
               <button
                 type="submit"
                 disabled={saving}
-                className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold text-white bg-blue-800 hover:bg-blue-900 disabled:opacity-60 rounded-lg transition-colors whitespace-nowrap shrink-0"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 sm:py-2.5 min-h-[48px] sm:min-h-0 text-base sm:text-sm font-semibold text-white bg-blue-800 hover:bg-blue-900 disabled:opacity-60 rounded-lg transition-colors whitespace-nowrap shrink-0"
               >
                 {saving ? (
                   <>
@@ -1370,9 +1388,9 @@ export function EntryFormView({
       {mode === 'lookup' && (
         <>
           {/* Step 1: Mobile Number Lookup */}
-          <section className="bg-white border border-slate-200 rounded-xl p-6 space-y-4">
-            <div className="flex items-center justify-between gap-4">
-              <div>
+          <section className="bg-white border border-slate-200 rounded-xl p-4 sm:p-6 space-y-4">
+            <div className="flex flex-wrap items-start sm:items-center justify-between gap-2">
+              <div className="min-w-0 flex-1">
                 <h2 className="text-base font-semibold text-slate-900">
                   Step 1 · मोबाइल नंबर (Mobile Number Lookup)
                 </h2>
@@ -1380,7 +1398,7 @@ export function EntryFormView({
                   Auto-fetches कार्मिक का नाम, लिंग, पदनाम, कार्यालय का नाम, and विभाग का नाम
                 </p>
               </div>
-              <span className="text-xs font-mono tabular-nums text-slate-500">
+              <span className="text-xs font-mono tabular-nums text-slate-500 shrink-0">
                 {mobileInput.length}/10 digits
               </span>
             </div>
@@ -1392,17 +1410,18 @@ export function EntryFormView({
                   id="mobile-lookup"
                   type="tel"
                   inputMode="numeric"
+                  enterKeyHint="search"
                   autoComplete="off"
                   maxLength={10}
                   value={mobileInput}
                   onChange={(e) => handleMobileChange(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 text-base font-mono tabular-nums tracking-wide bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-700/20 focus:border-blue-700"
+                  className="w-full min-h-[48px] sm:min-h-[44px] pl-10 pr-4 py-2.5 text-base font-mono tabular-nums tracking-wide bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-700/20 focus:border-blue-700"
                 />
               </div>
               <button
                 type="submit"
                 disabled={lookingUp || mobileInput.length !== 10}
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-blue-800 hover:bg-blue-900 disabled:opacity-50 rounded-lg transition-colors whitespace-nowrap shrink-0"
+                className="w-full sm:w-auto min-h-[48px] sm:min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 text-base sm:text-sm font-semibold text-white bg-blue-800 hover:bg-blue-900 disabled:opacity-50 rounded-lg transition-colors whitespace-nowrap shrink-0"
               >
                 {lookingUp ? (
                   <>
@@ -1428,7 +1447,7 @@ export function EntryFormView({
                   <button
                     type="button"
                     onClick={() => enterCreateMode(notFoundMobile)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-blue-800 hover:bg-blue-900 rounded-lg transition-colors whitespace-nowrap shrink-0"
+                    className="w-full sm:w-auto min-h-[44px] sm:min-h-0 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 text-sm sm:text-xs font-semibold text-white bg-blue-800 hover:bg-blue-900 rounded-lg transition-colors whitespace-nowrap shrink-0"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     Create New Entry
@@ -1452,21 +1471,21 @@ export function EntryFormView({
                         key={item.rowIndex}
                         type="button"
                         onClick={() => populateFromRecord(item)}
-                        className={`p-3 rounded-lg border text-left transition-colors ${
+                        className={`p-3.5 sm:p-3 min-h-[52px] rounded-lg border text-left transition-colors ${
                           isSelected
                             ? 'border-blue-700 bg-blue-50/70'
                             : 'border-slate-200 bg-slate-50 hover:bg-slate-100'
                         }`}
                       >
-                        <div className="flex items-center justify-between text-xs">
-                          <span className="font-semibold text-slate-900">
+                        <div className="flex items-center justify-between gap-2 text-xs">
+                          <span className="font-semibold text-slate-900 break-words">
                             {item.employeeName}
                           </span>
-                          <span className="font-mono tabular-nums text-slate-500">
+                          <span className="font-mono tabular-nums text-slate-500 shrink-0">
                             Row #{item.rowIndex}
                           </span>
                         </div>
-                        <p className="text-xs text-slate-600 mt-0.5 truncate">
+                        <p className="text-xs text-slate-600 mt-0.5 break-words">
                           {item.designation} · {item.officeName}
                         </p>
                       </button>
@@ -1479,12 +1498,12 @@ export function EntryFormView({
 
           {/* Step 2 & 3: Auto-fetched Profile + Remaining Sheet Fields */}
           {selectedRecord && (
-            <form onSubmit={handleFormSubmit} className="space-y-6">
+            <form onSubmit={handleFormSubmit} className="space-y-4 sm:space-y-6">
               {/* Step 2: Auto-Fetched Read-Only Fields */}
-              <section className="bg-white border border-slate-200 rounded-xl p-6 space-y-5">
-                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+              <section className="bg-white border border-slate-200 rounded-xl p-4 sm:p-6 space-y-4 sm:space-y-5">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3.5 sm:pb-4">
                   <div className="flex items-center gap-2">
-                    <UserCheck className="w-4 h-4 text-emerald-700" />
+                    <UserCheck className="w-4 h-4 text-emerald-700 shrink-0" />
                     <h2 className="text-base font-semibold text-slate-900">
                       Step 2 · Auto-Fetched Employee Details
                     </h2>
@@ -1494,44 +1513,44 @@ export function EntryFormView({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
-                  <div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-x-6 sm:gap-y-4">
+                  <div className="p-3 sm:p-0 bg-slate-50 sm:bg-transparent rounded-lg sm:rounded-none border border-slate-100 sm:border-0">
                     <p className="text-xs font-medium text-slate-500">
                       कार्मिक का नाम (Employee Name)
                     </p>
-                    <p className="text-sm font-semibold text-slate-900 mt-1">
+                    <p className="text-sm font-semibold text-slate-900 mt-1 break-words">
                       {selectedRecord.employeeName || '—'}
                     </p>
                   </div>
-                  <div>
+                  <div className="p-3 sm:p-0 bg-slate-50 sm:bg-transparent rounded-lg sm:rounded-none border border-slate-100 sm:border-0">
                     <p className="text-xs font-medium text-slate-500">
                       लिंग (Gender)
                     </p>
-                    <p className="text-sm font-semibold text-slate-900 mt-1">
+                    <p className="text-sm font-semibold text-slate-900 mt-1 break-words">
                       {selectedRecord.gender || '—'}
                     </p>
                   </div>
-                  <div>
+                  <div className="p-3 sm:p-0 bg-slate-50 sm:bg-transparent rounded-lg sm:rounded-none border border-slate-100 sm:border-0">
                     <p className="text-xs font-medium text-slate-500">
                       पदनाम (Designation)
                     </p>
-                    <p className="text-sm font-semibold text-slate-900 mt-1">
+                    <p className="text-sm font-semibold text-slate-900 mt-1 break-words">
                       {selectedRecord.designation || '—'}
                     </p>
                   </div>
-                  <div className="md:col-span-2">
+                  <div className="sm:col-span-2 p-3 sm:p-0 bg-slate-50 sm:bg-transparent rounded-lg sm:rounded-none border border-slate-100 sm:border-0">
                     <p className="text-xs font-medium text-slate-500">
                       कार्यालय का नाम (Office Name)
                     </p>
-                    <p className="text-sm font-semibold text-slate-900 mt-1">
+                    <p className="text-sm font-semibold text-slate-900 mt-1 break-words">
                       {selectedRecord.officeName || '—'}
                     </p>
                   </div>
-                  <div>
+                  <div className="p-3 sm:p-0 bg-slate-50 sm:bg-transparent rounded-lg sm:rounded-none border border-slate-100 sm:border-0">
                     <p className="text-xs font-medium text-slate-500">
                       विभाग का नाम (Department Name)
                     </p>
-                    <p className="text-sm font-semibold text-slate-900 mt-1">
+                    <p className="text-sm font-semibold text-slate-900 mt-1 break-words">
                       {selectedRecord.departmentName || '—'}
                     </p>
                   </div>
@@ -1539,8 +1558,8 @@ export function EntryFormView({
               </section>
 
               {/* Step 3: Remaining Sheet Fields (Uppercase English + SE ID Validation) */}
-              <section className="bg-white border border-slate-200 rounded-xl p-6 space-y-6">
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
+              <section className="bg-white border border-slate-200 rounded-xl p-4 sm:p-6 space-y-5 sm:space-y-6">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3.5 sm:pb-4">
                   <div>
                     <h2 className="text-base font-semibold text-slate-900">
                       Step 3 · Complete Remaining Sheet Fields
@@ -1554,7 +1573,7 @@ export function EntryFormView({
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
                   {/* पिता/पति का नाम */}
                   <div>
                     <label
@@ -1568,12 +1587,14 @@ export function EntryFormView({
                     <input
                       id="father-husband-name"
                       type="text"
+                      autoCapitalize="characters"
+                      autoCorrect="off"
                       required
                       value={form.fatherHusbandName}
                       onChange={(e) =>
                         handleUppercaseFieldChange('fatherHusbandName', e.target.value)
                       }
-                      className={`w-full px-3.5 py-2.5 text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                      className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                         fieldErrors.fatherHusbandName
                           ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                           : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -1604,12 +1625,14 @@ export function EntryFormView({
                     <input
                       id="ehrms-code"
                       type="text"
+                      autoCapitalize="characters"
+                      autoCorrect="off"
                       required={isEhrmsMandatory}
                       value={form.ehrmsCode}
                       onChange={(e) =>
                         handleUppercaseFieldChange('ehrmsCode', e.target.value)
                       }
-                      className={`w-full px-3.5 py-2.5 text-sm font-mono tabular-nums uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                      className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm font-mono tabular-nums uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                         fieldErrors.ehrmsCode
                           ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                           : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -1634,12 +1657,14 @@ export function EntryFormView({
                     <input
                       id="village-input"
                       type="text"
+                      autoCapitalize="characters"
+                      autoCorrect="off"
                       required
                       value={form.village}
                       onChange={(e) =>
                         handleUppercaseFieldChange('village', e.target.value)
                       }
-                      className={`w-full px-3.5 py-2.5 text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                      className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                         fieldErrors.village
                           ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                           : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -1673,13 +1698,15 @@ export function EntryFormView({
                     <input
                       id="se-id-input"
                       type="text"
+                      autoCapitalize="characters"
+                      autoCorrect="off"
                       maxLength={12}
                       required
                       value={form.seId}
                       onChange={(e) =>
                         handleUppercaseFieldChange('seId', e.target.value)
                       }
-                      className={`w-full px-3.5 py-2.5 text-sm font-mono tabular-nums uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                      className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm font-mono tabular-nums uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                         fieldErrors.seId
                           ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                           : seIdValid
@@ -1723,7 +1750,7 @@ export function EntryFormView({
                         setSaveError(null);
                         setSaveSuccess(null);
                       }}
-                      className={`w-full px-3.5 py-2.5 text-sm font-mono tabular-nums bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                      className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm font-mono tabular-nums bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                         fieldErrors.seDate
                           ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                           : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -1747,12 +1774,14 @@ export function EntryFormView({
                     <input
                       id="done-by-input"
                       type="text"
+                      autoCapitalize="characters"
+                      autoCorrect="off"
                       required
                       value={form.doneBy}
                       onChange={(e) =>
                         handleUppercaseFieldChange('doneBy', e.target.value)
                       }
-                      className={`w-full px-3.5 py-2.5 text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
+                      className={`w-full min-h-[44px] px-3.5 py-2.5 text-base sm:text-sm uppercase bg-slate-50 border rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:ring-2 ${
                         fieldErrors.doneBy
                           ? 'border-red-400 focus:ring-red-600/20 focus:border-red-600'
                           : 'border-slate-300 focus:ring-blue-700/20 focus:border-blue-700'
@@ -1784,7 +1813,7 @@ export function EntryFormView({
                   <button
                     type="submit"
                     disabled={saving}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold text-white bg-blue-800 hover:bg-blue-900 disabled:opacity-60 rounded-lg transition-colors whitespace-nowrap shrink-0"
+                    className="w-full sm:w-auto min-h-[48px] sm:min-h-0 inline-flex items-center justify-center gap-2 px-6 py-3 sm:py-2.5 text-base sm:text-sm font-semibold text-white bg-blue-800 hover:bg-blue-900 disabled:opacity-60 rounded-lg transition-colors whitespace-nowrap shrink-0"
                   >
                     {saving ? (
                       <>
